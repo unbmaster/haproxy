@@ -29,12 +29,12 @@ pipeline {
             steps{
 
                 script {
-                    sh 'docker service rm haproxy-service || true'
+                    sh 'docker service rm haproxy || true'
                     try {
                         sh 'docker service create \
                             --mode replicated \
                             --replicas 1 \
-                            --name haproxy-service \
+                            --name haproxy \
                             --network app-net \
                             --publish published=80,target=80,protocol=tcp,mode=ingress \
                             --publish published=443,target=443,protocol=tcp,mode=ingress \

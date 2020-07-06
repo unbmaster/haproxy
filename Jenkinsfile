@@ -19,7 +19,7 @@ pipeline {
                 }
 
                 configFileProvider([configFile(fileId: '889f81d4-8708-4f45-a7d4-6e2fb766ae17', variable: 'pem')]) {
-                    sh 'cat $pem > /usr/local/etc/haproxy/unbmaster.pem'
+                    sh 'cat $pem > /var/lib/jenkins/workspace/${JOB_NAME}/unbmaster.pem'
                 }
 
             }

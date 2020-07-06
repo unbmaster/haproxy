@@ -1,0 +1,28 @@
+sudo docker service create \
+--mode replicated \
+--replicas 1 \
+--name haproxy-service \
+--network netmaster \
+--publish published=80,target=80,protocol=tcp,mode=ingress \
+--publish published=443,target=443,protocol=tcp,mode=ingress \
+--mount type=bind,src=/home/docker/haproxy/,dst=/usr/local/etc/haproxy/,ro=true \
+--dns=127.0.0.11 \
+haproxytech/haproxy-debian:2.0
+
+
+version: '3.7'
+services:
+  haproxy:
+    image: unbmaster/haproxy-debian:2.0
+    container_name: haproxy
+    hostname: haproxy
+    ports:
+      - "5672:5672"
+      - "20000:20000"
+    network_mode: "bridge"
+    networks:
+      - netmaster
+
+networks:
+  netmaster:
+    external: true

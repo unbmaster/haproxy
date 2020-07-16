@@ -7,7 +7,7 @@ sudo docker service create \
 --publish published=443,target=443,protocol=tcp,mode=ingress \
 --mount type=bind,src=/home/docker/haproxy/,dst=/usr/local/etc/haproxy/,ro=true \
 --dns=127.0.0.11 \
-haproxytech/haproxy-debian:2.0
+haproxytech/haproxy-debian
 
 
 version: '3.7'

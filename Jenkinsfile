@@ -1,5 +1,8 @@
 pipeline {
-
+    environment {
+        registry = "${IMAGE_NAME}"
+        BUILD_NUMBER = "${BUILD_NUMBER}"
+    }
     agent any
 
     options {
@@ -24,7 +27,7 @@ pipeline {
 
             }
         }
-        
+
         stage('Build imagem (Docker)') {
             steps{
                 script {

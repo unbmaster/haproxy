@@ -61,6 +61,7 @@ pipeline {
 
                 script {
                     sh 'docker service rm haproxy || true'
+                    sleep 5
                     try {
                         sh 'docker service create \
                             --mode replicated \

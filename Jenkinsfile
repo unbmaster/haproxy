@@ -38,7 +38,7 @@ pipeline {
                             --network app-net \
                             --publish published=80,target=80,protocol=tcp,mode=ingress \
                             --publish published=443,target=443,protocol=tcp,mode=ingress \
-                            --mount type=bind,src=/var/lib/jenkins/workspace/${JOB_NAME},dst=/usr/local/etc/haproxy/,ro=true \
+                            --mount type=volume,src=${JOB_NAME},dst=/usr/local/etc/haproxy/,ro=true \
                             --dns=127.0.0.11 \
                             haproxytech/haproxy-debian:2.0'
                     } catch (Exception e) {

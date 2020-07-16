@@ -24,6 +24,18 @@ pipeline {
 
             }
         }
+        
+        stage('Build imagem (Docker)') {
+            steps{
+                script {
+                    try {
+                        dockerImage = docker.build registry + ":$BUILD_NUMBER"
+                    } catch (Exception e) {
+                        sh "echo $e; exit 1"
+                    }
+                }
+            }
+        }
 
         stage('Deploy Haproxy') {
             steps{

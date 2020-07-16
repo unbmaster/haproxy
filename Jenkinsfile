@@ -70,6 +70,7 @@ pipeline {
                             --network app-net \
                             --publish published=80,target=80,protocol=tcp,mode=ingress \
                             --publish published=443,target=443,protocol=tcp,mode=ingress \
+                            --mount type=bind,src=/home/taylor/master/services/haproxy,dst=/usr/local/etc/haproxy,ro=true \
                             --dns=127.0.0.11 \
                             unbmaster/haproxy:1.0'
                     } catch (Exception e) {

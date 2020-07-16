@@ -33,7 +33,7 @@ pipeline {
                 script {
                     sh 'docker service rm haproxy || true'
                     try {
-                        dockerImage = docker.build registry + ":$BUILD_NUMBER"
+                        dockerImage = docker.build registry
                     } catch (Exception e) {
                         sh "echo $e; exit 1"
                     }

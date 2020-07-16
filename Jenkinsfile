@@ -1,6 +1,6 @@
 pipeline {
     environment {
-        registry = "${IMAGE_NAME}"
+        registry = "unbmaster/haproxy:1.0"
         BUILD_NUMBER = "${BUILD_NUMBER}"
     }
     agent any
@@ -41,6 +41,21 @@ pipeline {
             }
         }
 
+        stage('Deploy imagem (DockerHub)') {
+            steps{
+
+                script {
+                    try {
+                        docker.withRegistry( '', 'dockerhub' ) {
+                            dockerImage.push()
+                        }
+                    } catch (Exception e) {
+                        ssh "echo $e; exit 1"
+                    }
+                }
+            }
+        }
+
         stage('Deploy Haproxy') {
             steps{
 
@@ -56,7 +71,7 @@ pipeline {
                             --publish published=443,target=443,protocol=tcp,mode=ingress \
                             --mount type=volume,src=haproxy,dst=/usr/local/etc/haproxy/,ro=true \
                             --dns=127.0.0.11 \
-                            haproxytech/haproxy-debian:2.0'
+                            unbmaster/haproxy:1.0'
                     } catch (Exception e) {
                         sh "echo $e; exit 1"
                         currentBuild.result = 'ABORTED'

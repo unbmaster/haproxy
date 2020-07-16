@@ -31,6 +31,7 @@ pipeline {
         stage('Build imagem (Docker)') {
             steps{
                 script {
+                    sh 'docker service rm haproxy || true'
                     try {
                         dockerImage = docker.build registry + ":$BUILD_NUMBER"
                     } catch (Exception e) {

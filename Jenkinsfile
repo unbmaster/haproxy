@@ -64,8 +64,7 @@ pipeline {
                     sleep 5
                     try {
                         sh 'docker service create \
-                            --mode replicated \
-                            --replicas 1 \
+                            --mode global \
                             --name haproxy \
                             --network app-net \
                             --publish published=80,target=80,protocol=tcp,mode=ingress \
